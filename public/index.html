@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resim Galerisi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Resim Galerisi</h1>
+    <div class="upload-area" id="dropZone">
+      <p>Resimleri sürükleyip bırakın veya</p>
+      <input type="file" id="fileInput" accept="image/*" multiple>
+      <label for="fileInput" class="btn">Dosya Seç</label>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <!-- Büyük Resim Popup'ı -->
+  <div class="popup" id="imagePopup">
+    <div class="popup-content">
+      <button class="popup-nav popup-prev" id="popupPrev">‹</button>
+      <button class="popup-nav popup-next" id="popupNext">›</button>
+      <button class="popup-close">&times;</button>
+      <img id="popupImage" src="" alt="Büyük Resim">
+    </div>
+  </div>
+
+  <!-- Silme Onay Popup'ı -->
+  <div class="confirm-popup" id="deleteConfirmPopup">
+    <div class="confirm-popup-header">
+      Silme Onayı
+    </div>
+    <div class="confirm-popup-body">
+      Bu resmi silmek istediğinize emin misiniz?
+    </div>
+    <div class="confirm-popup-footer">
+      <button class="confirm-btn confirm-btn-secondary" id="cancelDeleteBtn">Vazgeç</button>
+      <button class="confirm-btn confirm-btn-primary" id="confirmDeleteBtn">Sil</button>
+    </div>
+  </div>
+<div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

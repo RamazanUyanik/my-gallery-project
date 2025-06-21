@@ -1,0 +1,315 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+  transition: background-color 0.3s;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.upload-area {
+  border: 2px dashed #3498db;
+  border-radius: 5px;
+  padding: 30px;
+  text-align: center;
+  margin: 20px 0;
+  background-color: #f8fafc;
+  transition: all 0.3s;
+}
+
+.upload-area.highlight {
+  background-color: #ebf5ff;
+  border-color: #2980b9;
+}
+
+#fileInput {
+  display: none;
+}
+
+.btn {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.gallery-item.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.03);
+}
+
+.delete-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  background-color: #cc0000;
+  transform: translateY(-1px);
+}
+
+/* Büyük Resim Popup'ı */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.popup.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.popup-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.popup-content img {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+  margin: 0 auto;
+  transition: opacity 0.3s;
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  background: #ff0000;
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.popup-close:hover {
+  background: #cc0000;
+  transform: scale(1.1);
+}
+
+/* Popup navigasyon butonları */
+.popup-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 80px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.popup-nav:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.popup-prev {
+  left: 20px;
+}
+
+.popup-next {
+  right: 20px;
+}
+
+/* Buton ikonları */
+.popup-nav::after {
+  content: '';
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-top: 3px solid white;
+  border-right: 3px solid white;
+}
+
+.popup-prev::after {
+  transform: rotate(-135deg);
+  margin-left: 5px;
+}
+
+.popup-next::after {
+  transform: rotate(45deg);
+  margin-right: 5px;
+}
+
+/* Silme Onay Popup'ı */
+.confirm-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 2000;
+  display: none;
+}
+
+.confirm-popup.active {
+  display: block;
+}
+
+.confirm-popup-header {
+  background-color: #0056b3;
+  color: white;
+  padding: 15px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px 8px 0 0;
+}
+
+.confirm-popup-body {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.confirm-popup-footer {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.confirm-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+  transition: all 0.2s;
+}
+
+.confirm-btn-primary {
+  background-color: #0056b3;
+  color: white;
+}
+
+.confirm-btn-primary:hover {
+  background-color: #003d82;
+}
+
+.confirm-btn-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.confirm-btn-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+/* Arka Plan Karartma */
+.body-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  display: none;
+}
+
+body.darkened {
+  background-color: #333;
+}
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: rgba(60, 60, 60, 0.9);
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 12px 20px;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  pointer-events: none;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
